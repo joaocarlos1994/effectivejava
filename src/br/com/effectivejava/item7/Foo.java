@@ -4,6 +4,9 @@ public class Foo {
 
 	/**
 	 * Evite Finalizadores
+	 * 
+	 * Perda de desenpenho
+	 * Métodos finalize são usados com try-finally
 	 * */
 	
 	private final Object finalizerGuardian = new Object();
