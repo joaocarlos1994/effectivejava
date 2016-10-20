@@ -1,4 +1,4 @@
-package br.com.effectivejava.item8;
+package br.com.effectivejava.item8.item2;
 
 public final class CaseInsensitveString {
 	
