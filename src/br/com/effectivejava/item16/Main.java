@@ -1,6 +1,8 @@
 package br.com.effectivejava.item16;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Main {
 
@@ -11,7 +13,7 @@ public class Main {
 	 * especificamente para a extensao.
 	 * 
 	 * Herdar de classes concretas comuns ultrapassando os limites dos pacotes,
-	 * no entanto, é perigoso.
+	 * no entanto, ï¿½ perigoso.
 	 * 
 	 * Diferente da chamada de metodo, a heranca viola o encapsulamento. Em
 	 * outras palavras, uma subclasses depende dos detalhes de implementacao de
@@ -22,13 +24,22 @@ public class Main {
 	 * Sera implementado <code>InstrumentedHashSet<E></code> de forma a demostrar
 	 * o uso incorreto da heranca.
 	 * 
+	 * A <code>InstrumentedSet</code> e conhecida como classe encapsuladora porque
+	 * cada instancia de InstrumentedSet (encapsula) outra instancia de Set. Isso 
+	 * tambem conhecida como padrao Decorator[Gamma95, p. 175], porque a classe
+	 * InstrumentedSet "decora" um cojunto adicionando a instrumentacao.
+	 * 
 	 */
 	public static void main(String[] args) {
 		
 		final InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
 		s.addAll(Arrays.asList("Snap", "Crackle", "Pop"));
 		
-		System.out.println(s.getAddCount());		
+		System.out.println(s.getAddCount());
+		
+		final Set<String> n = new InstrumentedSet<>(new TreeSet<String>());
+		n.addAll(Arrays.asList("Snap", "Crackle", "Pop"));
+		
 	}
 
 }
