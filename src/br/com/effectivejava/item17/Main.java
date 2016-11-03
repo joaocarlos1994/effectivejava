@@ -13,10 +13,14 @@ package br.com.effectivejava.item17;
  * A melhor solucao para esse problema e proibir subclasses em classes que nao tenham sido
  * projetadas e documentadas para criacao segura de subclasses.
  * 
+ * Você deve expor a menor quantidade de membros protegidos possivel, porque cada um representa
+ * um compromemtimento com um detalhe da implementacao.
+ * 
  * Obs.:Se achaar que deve permitir a heranca a partir de um classe concreta, uma abordagem
  * aceitavel e assegurar que a classe nunca chame nenhum de seus metodos substituiveis e
  * documentar esse fato. Em outras palavras, elimine totalmente o uso exclusivo que a classe
  * faz de metodos substituiveis.
+ * 
  * 
  * */
 public class Main {
