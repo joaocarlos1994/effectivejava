@@ -21,7 +21,17 @@ package br.com.effectivejava.item19;
  * 
  * O pior e representar um compremetimento: se em uma versao futura a classe
  * for modificado para que nao precise mais usar constantes, continuara tendo
- * que implementar a interface para assegurar a compatibilidade binaria.
+ * que implementar a interface para assegurar a compatibilidade binaria. Se uma
+ * classe nao-final implementar uma interface de constantes, todas suas subclasses
+ * terao seus espacos de nomes adulterados pelas constates da interface.
+ * 
+ * Todas as classes primitivas numericas encaixotadas, como Integer e Double,
+ * exportam as constantes MIN_VALUE e MAX_VALUE. Se for melhor visualizar
+ * as constantes como membro de um tipo enumerado, você deve exporta-las como um
+ * tipo enum. Caso contrario, deve exportar as constantes como uma classe utilitaria
+ * nao instanciavel.
+ * 
+ * 
  * 
  */
 public class Main {
