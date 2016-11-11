@@ -53,6 +53,43 @@ import java.util.Collections;
  * omitir esse modificador, cada instancia tera uma referencia inutil
  * a sua instancia delimitadora.
  * 
+ * Um uso comum das classes membros estaticas privadas e na representacao
+ * de componentes do objeto representando por sua classe delimitadora,
+ * por exemplo uma instancia de Map, que tem um objeto Entry interno para
+ * cada par chave-valor do mapa, nao considerar ela estatica seria um erro.
+ * 
+ * Lembrar que sempre Classe membro e um elemento da API exportada e nao 
+ * pode ser transformada de uma classe membro nao-estatica e nao pode ser
+ * transformada de uma classe membro nao-estatica para um estatica em uma
+ * versao subsequente sem violar o compartibilidade binaria.
+ * 
+ * Classe anonimas sao sem nome, nao é membro de uma classe delimitadora,
+ * e declarada e instanciada simultaneamente no momento de ser usada. Ela
+ * tem instancias delimitadoras quando, e somente quando, ocorrem em um
+ * contexto nao-estatico.
+ * 
+ * Possui muitas limitacoes, nao podendo instancianda a nao ser no ponto
+ * em que sao declaradas a nao ser no ponto que sao declaradas. Nao podem
+ * executar testes instanceof ou fazer qualquer coisa que demande a
+ * nomeacao, nao pode declarar uma classe anonima para implementar varias
+ * interfaces ao mesmo tempo, os clientes de uma classe anonima nao podem
+ * chamar nenhum membro exceto que ela herda de seu supertipo.
+ * 
+ * Um uso comum das classes anonumas e na criacao dinamica de objetos de
+ * funcao, como instancia anonima de Comparator, Runnable, Thread ou 
+ * TimerTask. Um terceiro uso comum e dentro do metodo de fabricacao
+ * estatico.
+ * 
+ * Resumindo: Se uma classe aninhada tiver que ficar visivel fora de um
+ * unico metodo ou for longa demais para caber confortavelmente dentro de
+ * um metodo, use uma classe de membro. Se cada instancia da classe membro
+ * precisar de uma referencia a sua instancia delimitadora, torne-a nao
+ * estatica; caso contrario torne-a estatica. Supondo que a classe pertenca
+ * a uma metodo, se voce tiver que criar instancia a partir de apenas um local
+ * e houver um tipo preexistente que caracterize a classe, torne-a a uma classe
+ * anonima, caso contrario torne-a uma classe local.
+ * 
+ * 
  * */
 public class Main {
 	
