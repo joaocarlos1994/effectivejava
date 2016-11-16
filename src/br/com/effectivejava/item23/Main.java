@@ -54,6 +54,43 @@ package br.com.effectivejava.item23;
  * declarada com um tipo parametrizado, a insercao incorreta gera mensagem
  * de erro de tempo de compilacao que informa exatamente o que esta errado.
  * 
+ * Como beneficio voce nao tera mais que fazer conversoes manuais ao remover
+ * elementos de coleções. O compilador inserira conversoes invisiveis para
+ * voce e garantira que eles nao falhem.
+ * 
+ * A insercao acidentamente é real, é facil imaginar alguem inserindo uma
+ * instancia java.util.Date em uma colecao que devesse conter apenas
+ * instancia de java.sql.Date.
+ * 
+ * Ao mesmo tempo que você nao deve usar tipos brutos como List em codigo novo,
+ * e bom usar tipos que sejam parametrizados para permitir a insercao de objetos
+ * arbitrarios, como List<Object>. A diferenca entre o tipo bruto List e o tipo
+ * parametrizado List<Object> e que o tipo bruto List nao usa a verificacao de 
+ * tipo generico, enquanto o List<Object> informa explicitamente ao compilador
+ * que pode conter objetos de qualquer tipo. Embora voce possa passar um objeto
+ * List<String> para um parametro List, nao pode passa-lo para um parametro de
+ * tipo tipo List<Object>. Ha regras de sub-tipificacao para os genericos e
+ * List<String> e um subtipo do tipo bruto de List, mas nao do tipo parametrizado
+ * List<Object>. Como consequencia, voce perdera a consistencia de tipos se usar
+ * um tipo bruto como List, mas nao se usar um tipo parametrizado como 
+ * List<Object>. Para demostracao considere a classe <code>TestTipoBrutos</code>.
+ * 
+ * Voce pode ficar tentado a usar um tipo bruto para uma colecao cujo o tipo do
+ * elemento for desconhecido e irrelevante, por exemplo a classe 
+ * <code>ExemploSimularTiposIrrelevantes</code>.
+ * 
+ * Ha duas pequenas excecoes a regra que voce nao deve usar tipo brutos em codigo
+ * novo, ambas derivam do fato de que as informacoes de tipos genericos sao
+ * apagadas no tempo de execucao. Voce deve usar tipos brutos em literais de classe.
+ * 
+ * A segunda excecao a regra esta relacionada ao operador instanceof. Ja que
+ * informacoes de tipos genericos sao apagadas no tempo de execucao, nao e valido
+ * usar o operador instaceof em tipos parametrizados a nao ser em tipos de curinga
+ * irrestrito. O uso de tipos curinga irrestrito em vez de tipos brutos nao afeta
+ * de forma alguma o comportamento do operador instanceof.
+ * 
+ * 
+ * 
  * */
 public class Main {
 
