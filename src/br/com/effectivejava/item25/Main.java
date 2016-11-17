@@ -66,6 +66,12 @@ import java.util.List;
  * reificaveis sao os tipos de curinga irrestrito como List<?>
  * e Map<?,?>
  * 
+ * Resumindo: Matrizes e genericos tem regas muito diferentes
+ * referentes aos tipos. As matrizes sao covariantes e reificaveis;
+ * os genericos sao invariaveis e suprimidos. Como consequencia, as
+ * matrizes fornecem consistencia de tipos no tempo de execucao, mas
+ * nao no de compilacao, e vice-versa para os genericos.
+ * 
  * */
 public class Main {
 
