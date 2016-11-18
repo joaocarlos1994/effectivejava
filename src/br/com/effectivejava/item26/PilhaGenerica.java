@@ -22,19 +22,23 @@ public class PilhaGenerica<E> {
 	private int size = 0;
 	private final static int DEFAULT_INITIAL_CAPACITY = 16;
 	
+	//A matriz elements so tera instancias de E provenientes de push (E)
+	//Isso e suficiente para assegurar a consistencia de tipos, mas o
+	//Tipo da matriz no tempo de execucao sera E[]; sera sempre Object[]!
+	@SuppressWarnings("unchecked")
 	public PilhaGenerica(){
 		elements = (E[]) new Object[DEFAULT_INITIAL_CAPACITY];
 	}
 	
-	public void push(final Object e){
+	public void push(final E e){
 		ensureCapacity();
 		elements[size++] = e;
 	}
 	
-	public Object pop(){
+	public E pop(){
 		if(size == 0)
 			throw new EmptyStackException();
-		Object result = elements[--size]; 
+		E result = elements[--size]; 
 		elements[size] = null;
 		return result;
 	}
@@ -45,6 +49,4 @@ public class PilhaGenerica<E> {
 			elements = Arrays.copyOf(elements, 2 * size + 1);
 		}
 	}
-	
-	
 }
