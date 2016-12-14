@@ -135,7 +135,49 @@ package br.com.effectivejava.item28;
  *  
  *  	Iterator<? extends T> i = list.iterator();
  *  
- *  
+ * Exite uma dualidade entre parametros de tipo e curingas e muitos podem ser declarados
+ * com o uso de um ou outro. Por exemplo, aqui estao estao duas declaracoes possiveis
+ * para o metodo estatico que troca dois itens indexados em uma lista. A primeira 
+ * usa parametros de tipo irrestrito e a segunda um curinga irrestrito:
+ * 	
+ * 		public static <E> void swap(List<E> list, int i, int j);
+ * 		public static void swap(List<?> list, int i, int j);
+ * 
+ * Em uma API pública a segunda opcao e melhor porque e mais simple. Nao ha parametro de tipo
+ * com os quais se preocupar. Como regra, se um parametro de tipo aparecer uma vez em uma
+ * declaracao de metodo, substitua-o por curinga. Se ele for um parametro de tipo irrestrito,
+ * substitua-o por um curinga irrestrito; se for um parametro de tipo restrito, substitua-o por
+ * um curinga em vez de um parametro de tipo: a implementacao simples nao sera compilada.
+ * 
+ * Ha um problema na segunda declaracao de swap, que usa um curinga em vez de um parametro de
+ * tipo: a implementacao simples nao sera compilada:
+ * 
+ * 		public static void swap(List<?> list, int i, int j) {
+ * 			list.set(i, list.set(j, list.get(i)));
+ * 		}
+ * 
+ * Nao parece certo nao podermos devolver para lista um elemento que acabamos de extrair. O
+ * problema e que o tipo de list e List<?> e nao podemos inserir nenhum valor exceto null em
+ * um objeto List<?>. Felizmente, ha uma maneira de implementar esse metodo sem recorrer a
+ * uma conversao invalida ou um tipo bruto. A ideia e criar um metodo auxiliar privado para
+ * capturar o tipo de curinga. O metodo auxiliar deve ser um metodo generico para capturar o
+ * tipo:
+ * 
+ * 		public static void swap(List<?> list, int i, int j) {
+ * 			swapHelper(list, i, j);
+ * 		}
+ * 
+ * 		private static <E> void swapHelper(List<E> list, int i, int j) {
+ * 			list.set(i, list.set(j, list.get(i)));
+ * 		}
+ * 
+ * O metodo swapHelper sabe que list e um objeto List<E>. Portanto, sabe que qualquer valor que
+ * capturar nessa lista sera de tipo E e que e seguro inserir qualquer valor de tipo E na lista.
+ * Esta declaracao nos permite exportar a declaracao adequada de swap baseada em curinga, ao
+ * mesmo tempo em que se beneficia internamente do metodo generico mais complexo.
+ * 
+ * Resumido: Considere o uso de curingas para API e lembre-se a regra basica (PECS) produto-extends
+ * consumidor-super.
  * 
  * */
 public class Main {
