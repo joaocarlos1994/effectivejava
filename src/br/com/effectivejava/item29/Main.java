@@ -117,7 +117,9 @@ package br.com.effectivejava.item29;
  * o objeto para Class<? extends Annotation>, mas essa conversao e nao-verificada, portanto,
  * geraria um aviso em tempo de compilacao. Felizmente, a classe Class fornece um metodo de
  * instancia que executa esse tipo de conversao seguramente e dinamicamente. O metodo se
- * chama asSubclass e converter o objeto Class em que e chamado na representacao
+ * chama asSubclass e converter o objeto Class em que e chamado na representacao de uma
+ * subclasse da classe representada por seu argumento.
+ * 
  * 
  * 
  * */
