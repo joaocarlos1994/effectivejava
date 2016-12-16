@@ -142,7 +142,43 @@ package br.com.effectivejava.item30;
  * 
  * Uma desvantagem das implementacoes de metodo especifica de constante e
  * que elas tornam mais dificil o compartilhamento de codigo entre constante
- * enumeradas. Por exemplo i <code></code>
+ * enumeradas. Por exemplo i <code>PayrollDay</code> esse codigo e
+ * inegavelmente conciso, mas perigoso do ponto de vista de manutencao.
+ * Suponhamos que voce adicionasse um elemento ao enum, talvez um valor
+ * especial para representar uma folga, mas esquecesse de adicionar a 
+ * instrucao switch uma instrucao case correspondente. O programa continuara
+ * sendo compilado, mas o metodo pay pagara ao trabalhador silenciosamente
+ * pelo dia de folga a mesma quantia de um dia de semana comum.
+ * 
+ * Para executar o calculo do pagamento seguramente com implementacoes de
+ * metodo especifica de constante, voce teria que duplicar o calculo de 
+ * pagamento de hora extra para cada constante, voce teria que duplicar o
+ * calculo de pagamento de hora extra para cada constante ou transferir o
+ * calculo oara dois metodos auxiliares e chamar o metodo apropriado a cada
+ * constante.
+ * 
+ * O texto padronizado poderia ser reduzido pela substituicao do metodo
+ * abstrato overtimePay de PayrollDay por um metodo concreto que executasse
+ * o calculo da hora extra para dias uteis. Assim, somente os dias do fim
+ * de semana teriam que sobrepor o metodo. Mas isso aprensentaria a mesma
+ * desvantagem da instrucao switch.
+ * 
+ * A maneira correta de implementar esta enum e transferir o calculo de
+ * pagamento de hora extra para o enum estrategico, eliminando a 
+ * necessidade de uma instrucao switch ou uma implementacao de metodo 
+ * especifica de constante em PayrollDay. Embora esse padrao seja menos
+ * conciso do que a instrucao switch, e mais seguro e flexivel.
+ * 
+ * Uma pequena desvantagem no desepenho que os enums apresentam sobre as
+ * constantes int e que ha um custo de espaco e tempo para carga e
+ * inicializacao de tipos enum.
+ * 
+ * Voce deve usar enums sempre qure precisar de um cojunto fixo de 
+ * costante. Os enums sao muito mais legiveis, seguros e poderosos. Muitos
+ * enums nao requerem construtores ou membros explicitos, mas varios outros
+ * se beneficiam da associacao de dados a cada constante e do fornecimento
+ * de metodos cujo comportamento e afetado por esses dados.
+ * 
  * 
  * 
  * */
@@ -164,6 +200,14 @@ public class Main {
 			System.out.printf("%f %s %f = %f%n",
 					x, op, y, op.apply(x, y));
 		}
+		
+		////////////////////////////////////////////////////////////////////////
+		
+		double x1 = 10;
+		double y1 = 10;
+		
+		double result = PayrollDay2.FRIDAY.pay(x1, y1);
+		System.out.println("Resultado: " + result);
 
 	}
 
